@@ -1,0 +1,23 @@
+{
+  "title": "سجل النشاط",
+  "userTitle": "نشاط المستخدم",
+  "recordTitle": "سجل التغييرات",
+  "description": "كل تغيير مسجَّل ومَن قام به",
+  "event": "الحدث",
+  "performedBy": "نفّذه",
+  "targetModel": "العنصر",
+  "date": "التاريخ",
+  "system": "النظام / تلقائي",
+  "byWhom": "بواسطة {name}",
+  "viewChanges": "عرض التغييرات",
+  "changesTitle": "التغييرات المسجّلة",
+  "attribute": "الحقل",
+  "originalValue": "القيمة السابقة",
+  "newValue": "القيمة الجديدة",
+  "value": "القيمة",
+  "noChanges": "لم يتم تعديل أي قيم",
+  "close": "إغلاق",
+  "empty": "لا يوجد نشاط بعد",
+  "emptyBody": "ستظهر الإجراءات هنا فور حدوثها.",
+  "viewLogs": "عرض النشاط"
+}

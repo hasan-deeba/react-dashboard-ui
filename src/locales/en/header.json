@@ -1,0 +1,23 @@
+{
+  "greeting": {
+    "morning": "Good morning",
+    "afternoon": "Good afternoon",
+    "evening": "Good evening"
+  },
+  "welcome": "{greeting}, {name} — here's what's happening today.",
+  "toggleSidebar": "Toggle sidebar",
+  "search": {
+    "placeholder": "Search pages, orders…",
+    "noResults": "No results for “{query}”",
+    "page": "Page",
+    "navigate": "Navigate",
+    "open": "Open",
+    "close": "Close"
+  },
+  "userMenu": {
+    "profile": "View profile",
+    "preferences": "Preferences",
+    "help": "Help & Support",
+    "signOut": "Sign out"
+  }
+}

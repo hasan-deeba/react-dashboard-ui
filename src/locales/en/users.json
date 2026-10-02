@@ -1,0 +1,34 @@
+{
+  "singular": "User",
+  "plural": "Users",
+  "description": "Everyone with access to this workspace",
+  "fields": {
+    "name": "User",
+    "email": "Email address",
+    "image": "Profile photo",
+    "password": "Password",
+    "passwordConfirm": "Confirm password",
+    "newPassword": "New password",
+    "roles": "Roles",
+    "isActive": "Active account",
+    "joined": "Joined",
+    "lastActive": "Last active"
+  },
+  "hints": {
+    "password": "Leave blank to keep the current password.",
+    "isActive": "Inactive users cannot sign in.",
+    "roles": "Select one or more roles"
+  },
+  "values": {
+    "active": "Active",
+    "inactive": "Inactive"
+  },
+  "sections": {
+    "account": "Account details"
+  },
+  "actions": {
+    "view": "View profile",
+    "edit": "Edit user",
+    "delete": "Delete"
+  }
+}

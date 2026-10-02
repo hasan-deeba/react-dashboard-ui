@@ -1,0 +1,23 @@
+{
+  "title": "Activity log",
+  "userTitle": "User activity",
+  "recordTitle": "Record history",
+  "description": "Every change recorded, and who made it",
+  "event": "Event",
+  "performedBy": "Performed by",
+  "targetModel": "Target",
+  "date": "Date",
+  "system": "System / Automated",
+  "byWhom": "by {name}",
+  "viewChanges": "View changes",
+  "changesTitle": "Recorded changes",
+  "attribute": "Attribute",
+  "originalValue": "Original value",
+  "newValue": "New value",
+  "value": "Value",
+  "noChanges": "No attribute values were altered",
+  "close": "Close",
+  "empty": "No activity yet",
+  "emptyBody": "Actions will appear here as soon as they happen.",
+  "viewLogs": "View activity"
+}

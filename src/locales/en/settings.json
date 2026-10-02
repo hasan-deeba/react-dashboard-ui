@@ -1,0 +1,17 @@
+{
+  "singular": "Setting",
+  "plural": "Settings",
+  "description": "General configuration for this workspace",
+  "fields": {
+    "supportEmail": "Support email",
+    "supportPhone": "Support phone",
+    "logo": "Logo",
+    "address": "Address",
+    "maintenanceMode": "Maintenance mode",
+    "allowRegistration": "Allow public registration"
+  },
+  "hints": {
+    "maintenanceMode": "Only administrators can sign in while enabled.",
+    "allowRegistration": "Let visitors create their own account."
+  }
+}

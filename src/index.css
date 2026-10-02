@@ -1,0 +1,171 @@
+@import "tailwindcss";
+
+/* Enable class-based dark mode (Tailwind v4) */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ───────────────────────────── design tokens ─────────────────────────────
+ * Defaults live here so the very first paint is correct; `applyTheme()`
+ * overwrites them at runtime from the resolved ThemeConfig.
+ * ------------------------------------------------------------------------ */
+:root {
+  --brand-50: hsl(239 97% 97%);
+  --brand-100: hsl(239 94% 94%);
+  --brand-200: hsl(239 90% 87%);
+  --brand-300: hsl(239 85% 78%);
+  --brand-400: hsl(239 80% 67%);
+  --brand-500: hsl(239 84% 57%);
+  --brand-600: hsl(239 80% 49%);
+  --brand-700: hsl(239 75% 41%);
+  --brand-800: hsl(239 70% 33%);
+  --brand-900: hsl(239 66% 27%);
+  --brand-950: hsl(239 60% 17%);
+  --brand-base: #6366f1;
+  --brand-contrast: #ffffff;
+
+  --accent-50: hsl(280 97% 97%);
+  --accent-100: hsl(280 94% 94%);
+  --accent-200: hsl(280 90% 87%);
+  --accent-300: hsl(280 85% 78%);
+  --accent-400: hsl(280 80% 67%);
+  --accent-500: hsl(280 84% 57%);
+  --accent-600: hsl(280 80% 49%);
+  --accent-700: hsl(280 75% 41%);
+  --accent-800: hsl(280 70% 33%);
+  --accent-900: hsl(280 66% 27%);
+  --accent-950: hsl(280 60% 17%);
+  --accent-base: #a855f7;
+
+  --r-card: 1rem;
+  --r-control: 0.75rem;
+  --r-icon: 0.75rem;
+
+  --pad-card: 1.25rem;
+  --pad-nav-y: 0.625rem;
+  --gap-grid: 1.25rem;
+}
+
+/* Expose the tokens as real Tailwind utilities:
+ * bg-brand-600 / text-accent-500 / rounded-card / rounded-icon / gap-grid … */
+@theme inline {
+  --font-sans: "Inter", "IBM Plex Sans Arabic", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: "Sora", "IBM Plex Sans Arabic", "Inter", ui-sans-serif, system-ui, sans-serif;
+
+  --color-brand-50: var(--brand-50);
+  --color-brand-100: var(--brand-100);
+  --color-brand-200: var(--brand-200);
+  --color-brand-300: var(--brand-300);
+  --color-brand-400: var(--brand-400);
+  --color-brand-500: var(--brand-500);
+  --color-brand-600: var(--brand-600);
+  --color-brand-700: var(--brand-700);
+  --color-brand-800: var(--brand-800);
+  --color-brand-900: var(--brand-900);
+  --color-brand-950: var(--brand-950);
+  --color-brand-contrast: var(--brand-contrast);
+
+  --color-accent-50: var(--accent-50);
+  --color-accent-100: var(--accent-100);
+  --color-accent-200: var(--accent-200);
+  --color-accent-300: var(--accent-300);
+  --color-accent-400: var(--accent-400);
+  --color-accent-500: var(--accent-500);
+  --color-accent-600: var(--accent-600);
+  --color-accent-700: var(--accent-700);
+  --color-accent-800: var(--accent-800);
+  --color-accent-900: var(--accent-900);
+  --color-accent-950: var(--accent-950);
+
+  --radius-card: var(--r-card);
+  --radius-control: var(--r-control);
+  --radius-icon: var(--r-icon);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* ───────────────────────────── surface styles ─────────────────────────────
+ * The `surface` token swaps the card treatment app-wide (glass / solid / soft)
+ * without touching a single component.
+ * ------------------------------------------------------------------------ */
+.surface-card {
+  border-radius: var(--r-card);
+  border-width: 1px;
+  transition:
+    background-color 200ms,
+    border-color 200ms,
+    box-shadow 200ms;
+}
+
+html[data-surface="glass"] .surface-card {
+  background-color: color-mix(in srgb, white 80%, transparent);
+  border-color: color-mix(in srgb, var(--color-slate-200) 70%, transparent);
+  backdrop-filter: blur(16px);
+  box-shadow: 0 1px 2px rgb(15 23 42 / 0.04);
+}
+html.dark[data-surface="glass"] .surface-card {
+  background-color: color-mix(in srgb, var(--color-slate-900) 60%, transparent);
+  border-color: var(--color-slate-800);
+}
+
+html[data-surface="solid"] .surface-card {
+  background-color: white;
+  border-color: var(--color-slate-200);
+  box-shadow: none;
+}
+html.dark[data-surface="solid"] .surface-card {
+  background-color: var(--color-slate-900);
+  border-color: var(--color-slate-800);
+}
+
+html[data-surface="soft"] .surface-card {
+  background-color: white;
+  border-color: transparent;
+  box-shadow:
+    0 1px 2px rgb(15 23 42 / 0.04),
+    0 8px 24px -12px rgb(15 23 42 / 0.12);
+}
+html.dark[data-surface="soft"] .surface-card {
+  background-color: color-mix(in srgb, var(--color-slate-900) 85%, black);
+  border-color: transparent;
+  box-shadow: 0 8px 24px -12px rgb(0 0 0 / 0.5);
+}
+
+/* Smooth theme transitions on the surfaces that change colour */
+.theme-fade,
+.theme-fade * {
+  transition-property: background-color, border-color, color, fill, stroke;
+  transition-duration: 200ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+::selection {
+  background: color-mix(in srgb, var(--brand-500) 25%, transparent);
+}
+
+/* Refined scrollbars */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  @apply rounded-full bg-slate-300/70 hover:bg-slate-400/80 dark:bg-slate-700/70 dark:hover:bg-slate-600/80;
+}
+
+/* Subtle dotted grid used behind the dashboard canvas */
+.dot-grid {
+  background-image: radial-gradient(circle, rgba(100, 116, 139, 0.16) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+.dark .dot-grid {
+  background-image: radial-gradient(circle, rgba(148, 163, 184, 0.1) 1px, transparent 1px);
+}

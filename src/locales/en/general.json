@@ -1,0 +1,85 @@
+{
+  "app": {
+    "name": "HeroDash",
+    "tagline": "Admin Panel"
+  },
+  "nav": {
+    "sections": { "menu": "Menu", "general": "General" },
+    "dashboard": "Dashboard",
+    "analytics": "Analytics",
+    "analytics-overview": "Overview",
+    "analytics-reports": "Reports",
+    "analytics-insights": "Insights",
+    "users": "Users",
+    "users-roles": "Roles & Permissions",
+    "users-activity": "Activity log",
+    "profile": "Profile",
+    "appearance": "Appearance",
+    "settings": "Settings",
+    "help": "Help & Support"
+  },
+  "badges": { "new": "New" },
+  "crud": {
+    "create": "New {model}",
+    "createTitle": "Create {model}",
+    "createDescription": "Add a new {model} to your workspace.",
+    "editTitle": "Edit {model}",
+    "editDescription": "Update this {model}'s details.",
+    "deleteTitle": "Delete this {model}?",
+    "deleteDescription": "This action cannot be undone. The record will be permanently removed.",
+    "bulkDeleteTitle": "Delete {count} {model}?",
+    "empty": "No {model} yet",
+    "emptyBody": "Records will appear here once they are created.",
+    "created": "{model} created successfully",
+    "updated": "{model} updated successfully",
+    "deleted": "{model} deleted successfully",
+    "deleteFailed": "Could not delete this {model}",
+    "bulkDeleteFailed": "{count} records could not be deleted",
+    "activated": "Activated successfully",
+    "deactivated": "Deactivated successfully",
+    "actionFailed": "The action could not be completed",
+    "toggleActive": "Toggle active"
+  },
+  "crumbs": {
+    "label": "Breadcrumb",
+    "create": "Create",
+    "edit": "Edit",
+    "logs": "Activity",
+    "all": "All",
+    "activity-logs": "Activity log",
+    "roles": "Roles & Permissions",
+    "users": "Users"
+  },
+  "promo": {
+    "title": "Upgrade to Pro",
+    "body": "Unlock advanced reports, exports and unlimited seats.",
+    "cta": "View plans",
+    "dismiss": "Dismiss",
+    "online": "Online"
+  },
+  "theme": {
+    "toLight": "Switch to light mode",
+    "toDark": "Switch to dark mode"
+  },
+  "language": { "label": "Change language" },
+  "months": {
+    "jan": "Jan", "feb": "Feb", "mar": "Mar", "apr": "Apr",
+    "may": "May", "jun": "Jun", "jul": "Jul", "aug": "Aug",
+    "sep": "Sep", "oct": "Oct", "nov": "Nov", "dec": "Dec"
+  },
+  "comingSoon": {
+    "body": "The {title} module plugs into the same navigation, theming and layout system — ready to be built out.",
+    "back": "Back to Dashboard"
+  },
+  "notFound": {
+    "title": "Page not found",
+    "body": "The page you're looking for doesn't exist, was moved, or is temporarily unavailable.",
+    "back": "Back to Dashboard",
+    "help": "Get help"
+  },
+  "forbidden": {
+    "title": "Access denied",
+    "body": "You don't have permission to view this page. Contact an administrator if you think this is a mistake.",
+    "back": "Back to Dashboard"
+  }
+}

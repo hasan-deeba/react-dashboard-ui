@@ -1,0 +1,41 @@
+{
+  "create": "Create",
+  "update": "Save changes",
+  "cancel": "Cancel",
+  "saved": "Saved successfully",
+  "created": "Created successfully",
+  "updated": "Updated successfully",
+  "search": "Search…",
+  "selectPlaceholder": "Select…",
+  "noOptions": "No options available",
+  "remove": "Remove",
+  "uploadImage": "Upload image",
+  "removeImage": "Remove image",
+  "imageHint": "PNG, JPG or WebP — up to 2 MB.",
+  "grouped": {
+    "search": "Search…",
+    "selected": "{count} of {total}",
+    "toggleAll": "Toggle all",
+    "empty": "No options available"
+  },
+  "modal": {
+    "confirm": "Delete",
+    "cancel": "Cancel",
+    "deleteTitle": "Delete record?",
+    "deleteDescription": "This action cannot be undone. The record will be permanently removed.",
+    "bulkTitle": "Delete {count} records?",
+    "deleting": "Deleting…"
+  },
+  "validation": {
+    "required": "This field is required",
+    "email": "Enter a valid email address",
+    "min": "Must be at least {min} characters",
+    "max": "Must be at most {max} characters",
+    "minValue": "Must be {min} or more",
+    "maxValue": "Must be {max} or less",
+    "match": "Values do not match"
+  },
+  "errors": {
+    "generic": "Something went wrong. Please try again."
+  }
+}

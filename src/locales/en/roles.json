@@ -1,0 +1,27 @@
+{
+  "singular": "Role",
+  "plural": "Roles & Permissions",
+  "description": "Define what each group of users can access",
+  "fields": {
+    "name": "Role name",
+    "permissions": "Permissions",
+    "permissionsCount": "Permissions",
+    "usersCount": "Users",
+    "created": "Created"
+  },
+  "hints": {
+    "name": "e.g. content-editor",
+    "permissions": "Select the actions this role is allowed to perform."
+  },
+  "actions": {
+    "view": "View role",
+    "edit": "Edit role",
+    "delete": "Delete"
+  },
+  "users": "Users with this role",
+  "usersCountLabel": "{count} users with this role",
+  "permissionsCountLabel": "{count} permissions granted",
+  "summary": "{permissions} permissions · {users} users",
+  "noPermissions": "No permissions available",
+  "noUsers": "No users have this role yet"
+}

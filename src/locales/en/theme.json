@@ -1,0 +1,66 @@
+{
+  "title": "Theme Studio",
+  "subtitle": "Personalise the look of your dashboard. Changes apply instantly and are saved to this browser.",
+  "reset": "Reset to company default",
+  "customised": "Customised",
+  "presets": {
+    "title": "Presets",
+    "description": "Each preset changes the layout, surfaces and palette together.",
+    "nova": {
+      "name": "Nova",
+      "description": "Classic sidebar, glass surfaces, soft corners."
+    },
+    "atlas": {
+      "name": "Atlas",
+      "description": "Floating sidebar, minimal header, pill shapes."
+    },
+    "quartz": {
+      "name": "Quartz",
+      "description": "Icon rail, split header, sharp and compact."
+    }
+  },
+  "brand": {
+    "title": "Brand colour",
+    "description": "The full palette is generated from this colour.",
+    "custom": "Custom",
+    "accent": "Accent colour"
+  },
+  "shape": {
+    "title": "Corner style",
+    "description": "Controls the radius of cards, inputs and buttons.",
+    "sharp": "Sharp",
+    "soft": "Soft",
+    "rounded": "Rounded",
+    "pill": "Pill"
+  },
+  "icons": {
+    "title": "Icon shape",
+    "description": "Applies to icon wells, buttons and the logo mark.",
+    "rounded": "Rounded",
+    "circle": "Circle",
+    "squircle": "Squircle",
+    "sharp": "Square"
+  },
+  "surface": {
+    "title": "Surface style",
+    "glass": "Glass",
+    "solid": "Solid",
+    "soft": "Soft shadow"
+  },
+  "density": {
+    "title": "Density",
+    "comfortable": "Comfortable",
+    "compact": "Compact"
+  },
+  "layout": {
+    "title": "Layout",
+    "sidebar": "Sidebar",
+    "header": "Header",
+    "classic": "Classic",
+    "floating": "Floating",
+    "rail": "Icon rail",
+    "standard": "Standard",
+    "minimal": "Minimal",
+    "split": "Split"
+  }
+}

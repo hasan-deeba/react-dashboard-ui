@@ -1,0 +1,52 @@
+{
+  "title": "Profile",
+  "subtitle": "Manage your personal information and security",
+  "tabs": {
+    "general": "General",
+    "security": "Security"
+  },
+  "avatar": {
+    "title": "Profile photo",
+    "description": "PNG or JPG, up to 2 MB.",
+    "upload": "Upload photo",
+    "remove": "Remove"
+  },
+  "details": {
+    "title": "Personal details",
+    "description": "This information appears across the dashboard.",
+    "save": "Save changes",
+    "saved": "Profile updated successfully"
+  },
+  "status": {
+    "title": "Account status",
+    "active": "Active",
+    "inactive": "Inactive",
+    "activeHint": "Your account is active and can sign in.",
+    "inactiveHint": "This account is disabled and cannot sign in."
+  },
+  "roles": {
+    "title": "Roles",
+    "description": "Roles determine what you can access.",
+    "empty": "No roles assigned"
+  },
+  "password": {
+    "title": "Change password",
+    "description": "Use at least 8 characters with a mix of letters and numbers.",
+    "current": "Current password",
+    "new": "New password",
+    "confirm": "Confirm new password",
+    "submit": "Update password",
+    "updated": "Password updated successfully",
+    "strength": {
+      "weak": "Weak",
+      "fair": "Fair",
+      "good": "Good",
+      "strong": "Strong"
+    }
+  },
+  "danger": {
+    "title": "Sign out everywhere",
+    "description": "End all active sessions on other devices.",
+    "action": "Sign out all devices"
+  }
+}

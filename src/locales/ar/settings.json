@@ -1,0 +1,17 @@
+{
+  "singular": "إعداد",
+  "plural": "الإعدادات",
+  "description": "الإعدادات العامة لمساحة العمل",
+  "fields": {
+    "supportEmail": "بريد الدعم",
+    "supportPhone": "هاتف الدعم",
+    "logo": "الشعار",
+    "address": "العنوان",
+    "maintenanceMode": "وضع الصيانة",
+    "allowRegistration": "السماح بالتسجيل العام"
+  },
+  "hints": {
+    "maintenanceMode": "لا يمكن تسجيل الدخول إلا للمسؤولين أثناء تفعيله.",
+    "allowRegistration": "السماح للزوار بإنشاء حساباتهم."
+  }
+}

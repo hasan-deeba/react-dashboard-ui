@@ -1,0 +1,41 @@
+{
+  "create": "إنشاء",
+  "update": "حفظ التغييرات",
+  "cancel": "إلغاء",
+  "saved": "تم الحفظ بنجاح",
+  "created": "تم الإنشاء بنجاح",
+  "updated": "تم التحديث بنجاح",
+  "search": "بحث…",
+  "selectPlaceholder": "اختر…",
+  "noOptions": "لا توجد خيارات",
+  "remove": "إزالة",
+  "uploadImage": "رفع صورة",
+  "removeImage": "إزالة الصورة",
+  "imageHint": "PNG أو JPG أو WebP — بحد أقصى 2 ميجابايت.",
+  "grouped": {
+    "search": "بحث…",
+    "selected": "{count} من {total}",
+    "toggleAll": "تحديد الكل",
+    "empty": "لا توجد خيارات"
+  },
+  "modal": {
+    "confirm": "حذف",
+    "cancel": "إلغاء",
+    "deleteTitle": "حذف السجل؟",
+    "deleteDescription": "لا يمكن التراجع عن هذا الإجراء. سيتم حذف السجل نهائيًا.",
+    "bulkTitle": "حذف {count} سجلات؟",
+    "deleting": "جارٍ الحذف…"
+  },
+  "validation": {
+    "required": "هذا الحقل مطلوب",
+    "email": "أدخل بريدًا إلكترونيًا صالحًا",
+    "min": "يجب ألا يقل عن {min} أحرف",
+    "max": "يجب ألا يزيد عن {max} أحرف",
+    "minValue": "يجب أن يكون {min} أو أكثر",
+    "maxValue": "يجب أن يكون {max} أو أقل",
+    "match": "القيم غير متطابقة"
+  },
+  "errors": {
+    "generic": "حدث خطأ ما. يرجى المحاولة مرة أخرى."
+  }
+}

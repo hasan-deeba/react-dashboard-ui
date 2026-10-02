@@ -1,0 +1,70 @@
+{
+  "stats": {
+    "revenue": "Total Revenue",
+    "users": "Active Users",
+    "orders": "Total Orders",
+    "conversion": "Conversion Rate",
+    "vsLastMonth": "vs. last month"
+  },
+  "revenue": {
+    "title": "Revenue Overview",
+    "subtitle": "Income vs expenses · updated hourly",
+    "revenue": "Revenue",
+    "expenses": "Expenses"
+  },
+  "categories": {
+    "title": "Sales by Category",
+    "subtitle": "Share of total sales this year",
+    "electronics": "Electronics",
+    "fashion": "Fashion",
+    "home": "Home & Living",
+    "beauty": "Beauty",
+    "sports": "Sports"
+  },
+  "ordersTable": {
+    "title": "Recent Orders",
+    "subtitle": "{count} orders in the last 48 hours",
+    "export": "Export",
+    "viewAll": "View all",
+    "columns": {
+      "customer": "Customer",
+      "product": "Product",
+      "date": "Date",
+      "amount": "Amount",
+      "status": "Status"
+    },
+    "status": {
+      "completed": "Completed",
+      "processing": "Processing",
+      "cancelled": "Cancelled"
+    },
+    "products": {
+      "7824": "MacBook Pro 14”",
+      "7823": "iPhone 15 Pro",
+      "7822": "AirPods Max",
+      "7821": "iPad Air M2",
+      "7820": "Apple Watch Ultra",
+      "7819": "HomePod mini ×2"
+    }
+  },
+  "recentUsers": {
+    "title": "Recent users",
+    "subtitle": "The latest people to join",
+    "viewAll": "View all"
+  },
+  "activity": {
+    "title": "Activity",
+    "subtitle": "What your team is up to",
+    "live": "Live",
+    "viewAll": "View all activity",
+    "items": {
+      "a1": { "action": "placed a new order", "target": "#7824" },
+      "a2": { "action": "created an account" },
+      "a3": { "action": "processed payout", "target": "$12,480.00" },
+      "a4": { "action": "commented on", "target": "Q4 Revenue Report" },
+      "a5": { "action": "upgraded to", "target": "Pro Plan" },
+      "a6": { "action": "resolved incident", "target": "API latency spike" },
+      "a7": { "action": "requested a refund for", "target": "#7712" }
+    }
+  }
+}

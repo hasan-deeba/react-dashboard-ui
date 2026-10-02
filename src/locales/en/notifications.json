@@ -1,0 +1,35 @@
+{
+  "title": "Notifications",
+  "new": "{count} new",
+  "markAll": "Mark all read",
+  "empty": "All caught up!",
+  "emptyBody": "You have no notifications right now.",
+  "footer": "Showing recent activity from the last 7 days",
+  "dismiss": "Dismiss {title}",
+  "items": {
+    "n1": {
+      "title": "New order received",
+      "description": "Olivia Martin placed order #7824 for $1,999.00"
+    },
+    "n2": {
+      "title": "36 new signups",
+      "description": "Weekly registrations are up 12% vs last week"
+    },
+    "n3": {
+      "title": "Security alert",
+      "description": "New login detected from Berlin, Germany"
+    },
+    "n4": {
+      "title": "New comment",
+      "description": "Jackson Lee mentioned you in “Q4 Revenue Report”"
+    },
+    "n5": {
+      "title": "Backup completed",
+      "description": "Nightly database backup finished successfully"
+    },
+    "n6": {
+      "title": "Refund processed",
+      "description": "Refund #7712 of $349.00 was issued to William Kim"
+    }
+  }
+}

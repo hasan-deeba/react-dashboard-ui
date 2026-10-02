@@ -1,0 +1,27 @@
+{
+  "singular": "دور",
+  "plural": "الأدوار والأذونات",
+  "description": "حدّد ما يمكن لكل مجموعة من المستخدمين الوصول إليه",
+  "fields": {
+    "name": "اسم الدور",
+    "permissions": "الأذونات",
+    "permissionsCount": "الأذونات",
+    "usersCount": "المستخدمون",
+    "created": "تاريخ الإنشاء"
+  },
+  "hints": {
+    "name": "مثال: content-editor",
+    "permissions": "اختر الإجراءات المسموح بها لهذا الدور."
+  },
+  "actions": {
+    "view": "عرض الدور",
+    "edit": "تعديل الدور",
+    "delete": "حذف"
+  },
+  "users": "المستخدمون بهذا الدور",
+  "usersCountLabel": "{count} مستخدمًا بهذا الدور",
+  "permissionsCountLabel": "{count} إذنًا ممنوحًا",
+  "summary": "{permissions} إذنًا · {users} مستخدمًا",
+  "noPermissions": "لا توجد أذونات متاحة",
+  "noUsers": "لا يوجد مستخدمون بهذا الدور بعد"
+}

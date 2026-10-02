@@ -1,0 +1,23 @@
+{
+  "greeting": {
+    "morning": "صباح الخير",
+    "afternoon": "مساء الخير",
+    "evening": "مساء الخير"
+  },
+  "welcome": "{greeting} يا {name} — إليك ما يحدث اليوم.",
+  "toggleSidebar": "تبديل الشريط الجانبي",
+  "search": {
+    "placeholder": "ابحث في الصفحات والطلبات…",
+    "noResults": "لا توجد نتائج لـ “{query}”",
+    "page": "صفحة",
+    "navigate": "التنقل",
+    "open": "فتح",
+    "close": "إغلاق"
+  },
+  "userMenu": {
+    "profile": "عرض الملف الشخصي",
+    "preferences": "التفضيلات",
+    "help": "المساعدة والدعم",
+    "signOut": "تسجيل الخروج"
+  }
+}
