@@ -27,7 +27,13 @@
     "versionFormat": "Minimum supported version — MAJOR.MINOR.PATCH, e.g. 1.10.0.",
     "versionMin": "Older than {version} must update · {version} and newer continue",
     "image": "{formats} — up to {max} KB and at most 4096×4096 px.",
-    "colorEmpty": "Leave empty to clear (no custom color)."
+    "legalText": "The app displays this text when available. Otherwise, it uses the external link."
+  },
+  "editor": {
+    "edit": "Write",
+    "preview": "Preview",
+    "empty": "Nothing to preview yet.",
+    "count": "{count} / {max} characters"
   },
   "actions": {
     "upload": "Upload image",
@@ -61,7 +67,6 @@
   "readonly": "This field type ({type}) isn't supported by this dashboard version, so it's shown read-only.",
   "validation": {
     "englishRequired": "The English value is required",
-    "color": "Use #RRGGBB — a leading # followed by exactly 6 hex digits (e.g. #2563EB)",
     "version": "Use MAJOR.MINOR.PATCH — digits only, no leading zeros or suffixes (e.g. 1.10.0)",
     "url": "Enter a full URL starting with http:// or https://",
     "phone": "Only digits, spaces and the characters + ( ) . - are allowed",

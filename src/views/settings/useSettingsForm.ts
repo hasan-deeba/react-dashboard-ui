@@ -50,6 +50,24 @@ export interface LoadError {
   message: string;
 }
 
+/**
+ * Fields the backend REMOVED but an older deployment may still advertise.
+ * `branding.primary_color` was deleted from the registry and is rejected as
+ * an unknown key on the new API — anything listed here is never rendered,
+ * drafted, validated or sent, regardless of what a stale builder says.
+ */
+const HIDDEN_FIELDS: ReadonlySet<string> = new Set(["branding.primary_color"]);
+
+/** Builder groups minus hidden fields; empty groups drop out entirely. */
+function visibleGroups(builder: SettingsBuilderResponse): SettingsGroupMeta[] {
+  return builder.groups
+    .map((group) => ({
+      ...group,
+      fields: group.fields.filter((field) => !HIDDEN_FIELDS.has(field.key)),
+    }))
+    .filter((group) => group.fields.length > 0);
+}
+
 /** A switch the user tried to enable that needs a confirmation dialog first. */
 export interface PendingToggle {
   kind: "maintenance" | "lock";
@@ -108,10 +126,11 @@ export function useSettingsForm(): SettingsFormController {
     Promise.all([fetchSettings(), fetchSettingsBuilder()])
       .then(([freshValues, freshBuilder]) => {
         if (cancelled) return;
+        const groups = visibleGroups(freshBuilder);
         setValues(freshValues);
-        setBuilder(freshBuilder);
+        setBuilder({ ...freshBuilder, groups });
         setErrors({});
-        setDrafts(buildDrafts(freshBuilder.groups, freshValues));
+        setDrafts(buildDrafts(groups, freshValues));
       })
       .catch((error: unknown) => {
         if (cancelled) return;

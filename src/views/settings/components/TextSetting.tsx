@@ -32,12 +32,11 @@ const INPUT_TYPE: Record<string, string> = {
 };
 
 /** Types whose content is machine-ish and always stays left-to-right. */
-const LTR_TYPES = new Set(["EMAIL", "URL", "PHONE", "VERSION", "COLOR"]);
+const LTR_TYPES = new Set(["EMAIL", "URL", "PHONE", "VERSION"]);
 
 const PLACEHOLDERS: Record<string, string> = {
   URL: "https://example.com",
   VERSION: "1.10.0",
-  COLOR: "#2563EB",
 };
 
 export function TextSetting({ field, draft, error, hint, disabled, onChange }: ScalarWidgetProps) {

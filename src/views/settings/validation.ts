@@ -24,7 +24,6 @@ export interface FieldIssue {
   message: string;
 }
 
-const COLOR_RE = /^#[0-9a-fA-F]{6}$/;
 const VERSION_RE = /^(0|[1-9][0-9]{0,8})\.(0|[1-9][0-9]{0,8})\.(0|[1-9][0-9]{0,8})$/;
 const URL_RE = /^https?:\/\/\S+/i;
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -36,6 +35,7 @@ const FALLBACK_MAX: Record<string, number> = {
   PHONE: 40,
   URL: 2048,
   VERSION: 32,
+  TRANSLATABLE_MARKDOWN: 50000,
 };
 
 function maxFor(field: SettingsFieldMeta): number | undefined {
@@ -51,8 +51,10 @@ export function validateFieldDraft(
   const issues: FieldIssue[] = [];
 
   if (draft.kind === "translated") {
-    // `en` is required and non-empty; `ar` is optional. Lengths per language.
-    if (draft.en.trim() === "") {
+    // TRANSLATABLE_TEXT: `en` is required and non-empty, `ar` optional.
+    // TRANSLATABLE_MARKDOWN (legal docs): BOTH languages are optional —
+    // an empty document just falls back to the external link.
+    if (field.type === "TRANSLATABLE_TEXT" && draft.en.trim() === "") {
       issues.push({ key: field.key, sub: "en", message: t("settings.validation.englishRequired") });
     }
     const max = maxFor(field);
@@ -77,9 +79,6 @@ export function validateFieldDraft(
   }
 
   switch (field.type) {
-    case "COLOR":
-      if (!COLOR_RE.test(value)) issues.push({ key: field.key, message: t("settings.validation.color") });
-      break;
     case "VERSION":
       if (!VERSION_RE.test(value)) issues.push({ key: field.key, message: t("settings.validation.version") });
       break;

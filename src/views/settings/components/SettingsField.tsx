@@ -20,9 +20,9 @@ import {
   type LangCode,
 } from "@/views/settings/settingsState";
 import { TextSetting } from "@/views/settings/components/TextSetting";
-import { ColorSetting } from "@/views/settings/components/ColorSetting";
 import { BooleanSetting } from "@/views/settings/components/BooleanSetting";
 import { TranslatableSetting } from "@/views/settings/components/TranslatableSetting";
+import { MarkdownSetting } from "@/views/settings/components/MarkdownSetting";
 import { ImageSetting } from "@/views/settings/components/ImageSetting";
 import { FieldHint, FieldLabel } from "@/views/settings/components/chrome";
 
@@ -79,12 +79,12 @@ function ReadonlyFallback({ field, value, typeName }: { field: SettingsFieldMeta
 const KNOWN_TYPES = new Set([
   "TEXT",
   "TRANSLATABLE_TEXT",
+  "TRANSLATABLE_MARKDOWN",
   "BOOLEAN",
   "IMAGE",
   "EMAIL",
   "URL",
   "PHONE",
-  "COLOR",
   "VERSION",
 ]);
 
@@ -117,7 +117,19 @@ export function SettingsField({ field, ctx }: { field: SettingsFieldMeta; ctx: S
 
   switch (draft.kind) {
     case "translated":
-      return (
+      return field.type === "TRANSLATABLE_MARKDOWN" ? (
+        <MarkdownSetting
+          field={field}
+          draft={draft}
+          errors={{
+            base: error,
+            en: ctx.errors[`${field.key}.en`],
+            ar: ctx.errors[`${field.key}.ar`],
+          }}
+          disabled={disabled}
+          onChange={(lang, value) => ctx.onTranslated(field.key, lang, value)}
+        />
+      ) : (
         <TranslatableSetting
           field={field}
           draft={draft}
@@ -167,15 +179,7 @@ export function SettingsField({ field, ctx }: { field: SettingsFieldMeta; ctx: S
       );
 
     case "scalar":
-      return field.type === "COLOR" ? (
-        <ColorSetting
-          field={field}
-          draft={draft}
-          error={error}
-          disabled={disabled}
-          onChange={(value) => ctx.onScalar(field.key, value)}
-        />
-      ) : (
+      return (
         <TextSetting
           field={field}
           draft={draft}
