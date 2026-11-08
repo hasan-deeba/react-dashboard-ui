@@ -70,7 +70,7 @@ export function SettingsSection({ group, platforms, ctx, canEdit, dirty, saving,
     <section
       id={`settings-section-${group.key}`}
       aria-label={group.label}
-      className="surface-card scroll-mt-24 overflow-hidden"
+      className="surface-card overflow-hidden"
     >
       <header className="flex items-center gap-3 border-b border-slate-200/70 px-[var(--pad-card)] py-4 dark:border-slate-800">
         <span className="grid size-9 shrink-0 place-items-center rounded-icon bg-brand-500/10 text-brand-600 dark:text-brand-400">
