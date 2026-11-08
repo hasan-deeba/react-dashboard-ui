@@ -129,7 +129,7 @@ If the DTO key names ever change, edit the constants at the top of
 | Loading | `@/components/ui/Loading` | `Spinner` · `LoadingPanel` · `LoadingSection` · `LoadingScreen` · `Skeleton`. Never write a bespoke spinner. |
 | Delete flow | `@/hooks/useResourceTable` | `requestDelete` / `requestBulkDelete` / `toggleActive` / `confirmDialog` / `refreshKey` — never hand-roll confirm state in a list page. |
 | Excel export | `<DataTable exportMode="server">` | calls `GET {resource}/export` with the live filters; default `"client"` builds a CSV locally. |
-| Singleton form | `<DynamicForm singleton>` | `GET`/`POST {resource}` with no id — used by Settings. |
+| Singleton form | `<DynamicForm singleton>` | `GET`/`POST {resource}` with no id. (The Settings page does NOT use this — `/settings` follows the CMS settings contract: bare objects, builder-driven fields, partial JSON patches + per-image multipart. See `src/views/settings/`.) |
 | Session expiry | `AUTH_UNAUTHORIZED_EVENT` | api.ts dispatches on an authed 401; AuthContext clears the session + toasts; guards redirect to /login. |
 | Crash guard | `@/components/ui/ErrorBoundary` | wraps routed pages in AppLayout, keyed by pathname (resets on navigation). |
 | Reduced motion | `MotionConfig` in App | `reducedMotion="user"` — respects the OS setting globally. |
