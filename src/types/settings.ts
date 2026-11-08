@@ -27,8 +27,6 @@ export interface BrandingSettings {
   app_icon: string | null;
   logo: string | null;
   favicon: string | null;
-  /** `#RRGGBB` — nullable. */
-  primary_color: string | null;
 }
 
 export interface SupportSettings {
@@ -37,9 +35,21 @@ export interface SupportSettings {
   website_url: string | null;
 }
 
+/**
+ * An optional Markdown legal document per language. Unlike TranslatedText,
+ * BOTH languages are nullable and English is not required; the whole
+ * document may itself be null (→ the app falls back to the external link).
+ */
+export interface TranslatedMarkdownDoc {
+  en: string | null;
+  ar: string | null;
+}
+
 export interface LegalSettings {
   privacy_policy_url: string | null;
+  privacy_policy_text: TranslatedMarkdownDoc | null;
   terms_url: string | null;
+  terms_text: TranslatedMarkdownDoc | null;
 }
 
 export interface AvailabilitySettings {
@@ -75,16 +85,21 @@ export interface SettingsValues {
 export type SettingsFieldType =
   | "TEXT"
   | "TRANSLATABLE_TEXT"
+  | "TRANSLATABLE_MARKDOWN"
   | "BOOLEAN"
   | "IMAGE"
   | "EMAIL"
   | "URL"
   | "PHONE"
-  | "COLOR"
   | "VERSION";
 
 /** A default as declared by the builder: scalar, boolean or translated pair. */
-export type SettingsFieldDefault = string | boolean | TranslatedText | null;
+export type SettingsFieldDefault =
+  | string
+  | boolean
+  | TranslatedText
+  | TranslatedMarkdownDoc
+  | null;
 
 export interface SettingsFieldMeta {
   /** Dot path — also the form path and the 422 error key, e.g. "apps.ios.version". */
@@ -130,11 +145,26 @@ export interface BrandingPatch {
   app_icon?: null;
   logo?: null;
   favicon?: null;
-  primary_color?: string | null;
 }
 
 export type SupportPatch = Partial<SupportSettings>;
-export type LegalPatch = Partial<LegalSettings>;
+
+/**
+ * Patch for a legal Markdown document: send only the languages that changed
+ * (`null` clears one language), or set the whole field to `null` to clear
+ * both languages at once. Whitespace-only content must become `null`.
+ */
+export interface LegalMarkdownPatch {
+  en?: string | null;
+  ar?: string | null;
+}
+
+export interface LegalPatch {
+  privacy_policy_url?: string | null;
+  privacy_policy_text?: LegalMarkdownPatch | null;
+  terms_url?: string | null;
+  terms_text?: LegalMarkdownPatch | null;
+}
 
 export interface AvailabilityPatch {
   maintenance_enabled?: boolean;

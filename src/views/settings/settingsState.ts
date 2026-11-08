@@ -114,6 +114,8 @@ export function initialFieldDraft(
     case "BOOLEAN":
       return { kind: "boolean", value: toBoolean(raw, field.default) };
     case "TRANSLATABLE_TEXT":
+    case "TRANSLATABLE_MARKDOWN":
+      // Markdown docs may be null at every level — drafts normalise to "".
       return { kind: "translated", ...toTranslatedDraft(raw, field.default) };
     case "IMAGE":
       // The URL itself is display-only state and lives in `values`.
@@ -224,9 +226,44 @@ export function buildGroupPatch(
 
     if (draft.kind === "translated") {
       const loaded = toTranslatedDraft(valueAtPath(values, field.key), field.default);
-      const patch: { en?: string; ar?: string | null } = {};
-      if (draft.en !== loaded.en) patch.en = draft.en;
-      if (draft.ar !== loaded.ar) patch.ar = draft.ar === "" ? null : draft.ar;
+      const isMarkdown = field.type === "TRANSLATABLE_MARKDOWN";
+
+      /**
+       * Wire value per language. Markdown: a whitespace-only editor means
+       * "cleared" → null, while nonempty content goes out byte-for-byte (its
+       * whitespace is meaningful). Text: an empty editor clears `ar`
+       * (`en` can't be empty — validation rejects it first).
+       */
+      const toWire = (value: string): string | null =>
+        isMarkdown
+          ? value.trim() === ""
+            ? null
+            : value
+          : value === ""
+            ? null
+            : value;
+
+      const enDirty = draft.en !== loaded.en;
+      const arDirty = draft.ar !== loaded.ar;
+
+      /**
+       * Clearing a Markdown document: when the RESULT of this patch would
+       * be an empty document (both languages null, counting what the server
+       * already holds), send the whole-field null form — it never touches
+       * the sibling URL.
+       */
+      if (isMarkdown && (enDirty || arDirty)) {
+        const finalEn = enDirty ? toWire(draft.en) : loaded.en === "" ? null : loaded.en;
+        const finalAr = arDirty ? toWire(draft.ar) : loaded.ar === "" ? null : loaded.ar;
+        if (finalEn === null && finalAr === null) {
+          setPathValue(tree, field.key, null);
+          continue;
+        }
+      }
+
+      const patch: { en?: string | null; ar?: string | null } = {};
+      if (enDirty) patch.en = toWire(draft.en);
+      if (arDirty) patch.ar = toWire(draft.ar);
       if (Object.keys(patch).length > 0) setPathValue(tree, field.key, patch);
       continue;
     }

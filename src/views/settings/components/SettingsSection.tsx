@@ -44,7 +44,10 @@ interface SettingsSectionProps {
 
 function FieldCell({ field, ctx }: { field: SettingsFieldMeta; ctx: SettingsFieldContext }) {
   const wide =
-    field.type === "TRANSLATABLE_TEXT" || field.type === "IMAGE" || field.type === "BOOLEAN";
+    field.type === "TRANSLATABLE_TEXT" ||
+    field.type === "TRANSLATABLE_MARKDOWN" ||
+    field.type === "IMAGE" ||
+    field.type === "BOOLEAN";
   return (
     <div className={cn("min-w-0", wide ? "sm:col-span-2" : "sm:col-span-1")}>
       <SettingsField field={field} ctx={ctx} />
