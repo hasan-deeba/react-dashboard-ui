@@ -1,17 +1,76 @@
 {
   "singular": "Setting",
   "plural": "Settings",
-  "description": "General configuration for this workspace",
-  "fields": {
-    "supportEmail": "Support email",
-    "supportPhone": "Support phone",
-    "logo": "Logo",
-    "address": "Address",
-    "maintenanceMode": "Maintenance mode",
-    "allowRegistration": "Allow public registration"
+  "description": "Global application settings applied to every user and client app",
+  "scope": {
+    "title": "Global application settings",
+    "body": "These are global application settings — they apply to every user and every client app, not just your account. Changes take effect as soon as a section is saved."
+  },
+  "status": {
+    "loadError": "We couldn't load the settings",
+    "retry": "Try again",
+    "dirty": "Unsaved changes",
+    "viewOnly": "View only — you don't have permission to edit settings.",
+    "saving": "Saving…",
+    "uploading": "Uploading image…",
+    "save": "Save section"
+  },
+  "langs": {
+    "en": "English",
+    "ar": "العربية"
   },
   "hints": {
-    "maintenanceMode": "Only administrators can sign in while enabled.",
-    "allowRegistration": "Let visitors create their own account."
+    "appIcon": "One shared project icon used by every platform (iOS, Android and web).",
+    "maintenance": "While on, every client/mobile API route answers 503 with the maintenance message. This CMS dashboard keeps working; existing and new client sign-ins are blocked until you turn it off.",
+    "registration": "When off, new client sign-ups are rejected (403). Existing client accounts can still sign in.",
+    "lock": "Installed app versions strictly older than the minimum version must update before they can continue. Equal or newer versions keep working normally.",
+    "versionFormat": "Minimum supported version — MAJOR.MINOR.PATCH, e.g. 1.10.0.",
+    "versionMin": "Older than {version} must update · {version} and newer continue",
+    "image": "{formats} — up to {max} KB and at most 4096×4096 px.",
+    "colorEmpty": "Leave empty to clear (no custom color)."
+  },
+  "actions": {
+    "upload": "Upload image",
+    "replace": "Replace image",
+    "remove": "Remove image",
+    "undo": "Undo"
+  },
+  "dialogs": {
+    "maintenance": {
+      "title": "Enable maintenance mode?",
+      "body": "All client and mobile API routes will immediately return 503 with your maintenance message. The CMS dashboard stays available, but existing and new client sign-ins are blocked while it is on.",
+      "confirm": "Enable maintenance mode"
+    },
+    "lock": {
+      "title": "Force an app update?",
+      "body": "Devices running a version older than the configured minimum will be blocked until they update. Double-check the minimum version and the store link before enabling.",
+      "confirm": "Enable update lock"
+    },
+    "removeImage": {
+      "title": "Remove this image?",
+      "body": "The current file is deleted from the server when you save this section.",
+      "confirm": "Remove"
+    },
+    "unsaved": {
+      "title": "Discard unsaved changes?",
+      "body": "You have unsaved changes on this page. Leaving now will discard them.",
+      "confirm": "Discard and leave",
+      "stay": "Stay"
+    }
+  },
+  "readonly": "This field type ({type}) isn't supported by this dashboard version, so it's shown read-only.",
+  "validation": {
+    "englishRequired": "The English value is required",
+    "color": "Use #RRGGBB — a leading # followed by exactly 6 hex digits (e.g. #2563EB)",
+    "version": "Use MAJOR.MINOR.PATCH — digits only, no leading zeros or suffixes (e.g. 1.10.0)",
+    "url": "Enter a full URL starting with http:// or https://",
+    "phone": "Only digits, spaces and the characters + ( ) . - are allowed",
+    "imageType": "This file type isn't allowed. Use: {formats}",
+    "imageSize": "The image is too large — the limit is {max} KB",
+    "imageDimensions": "Image dimensions must be at most {max}×{max} px",
+    "imageUnreadable": "This file doesn't look like a valid image",
+    "lockBlocked": "The update lock needs a minimum version and a store URL first",
+    "lockNeedsVersion": "A minimum version is required while the update lock is enabled",
+    "lockNeedsStore": "A store URL is required while the update lock is enabled"
   }
 }
