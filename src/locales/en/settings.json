@@ -34,10 +34,12 @@
     "preview": "Preview",
     "empty": "Nothing to preview yet.",
     "count": "{count} / {max} characters",
+    "placeholder": "Write here… Markdown formatting is supported (bold, headings, lists, links).",
     "toolbar": {
       "label": "Formatting toolbar",
       "bold": "Bold",
       "italic": "Italic",
+      "strike": "Strikethrough",
       "code": "Inline code",
       "heading1": "Heading 1",
       "heading2": "Heading 2",
