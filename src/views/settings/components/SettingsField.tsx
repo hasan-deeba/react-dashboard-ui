@@ -13,6 +13,7 @@
  */
 
 import { useLanguage } from "@/context/LanguageContext";
+import { resolveMediaUrl } from "@/services/api";
 import type { SettingsFieldMeta, SettingsValues } from "@/types/settings";
 import {
   valueAtPath,
@@ -165,7 +166,8 @@ export function SettingsField({ field, ctx }: { field: SettingsFieldMeta; ctx: S
           draft={draft}
           currentUrl={(() => {
             const raw = valueAtPath(ctx.values, field.key);
-            return typeof raw === "string" && raw ? raw : null;
+            // Saved values may be relative to the API host — anchor them.
+            return resolveMediaUrl(typeof raw === "string" ? raw : null);
           })()}
           extraHint={field.key === "branding.app_icon" ? t("settings.hints.appIcon") : undefined}
           error={error}
