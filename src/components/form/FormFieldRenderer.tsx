@@ -1,9 +1,11 @@
+import { useState } from "react";
 import { AlertCircle } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 import { InlineSelect } from "@/components/table/InlineSelect";
-import { Switch } from "@/components/ui/FormField";
-import { PasswordField, TextField } from "@/components/ui/FormField";
-import { ImageInput } from "@/components/form/inputs/ImageInput";
+import { PasswordField, TextField } from "@/components/form/inputs/TextFields";
+import { ImageUploadField } from "@/components/form/inputs/ImageUploadField";
+import { RichTextEditor } from "@/components/form/inputs/RichTextEditor";
+import { SwitchField } from "@/components/form/inputs/SwitchField";
 import { MultiSelect } from "@/components/form/inputs/MultiSelect";
 import { GroupedCheckbox, normalizeGroups } from "@/components/form/inputs/GroupedCheckbox";
 import { cn } from "@/utils/cn";
@@ -126,27 +128,36 @@ export function FormFieldRenderer({
 
     case "switch":
       return (
-        <div className="flex items-center justify-between rounded-control border border-slate-200 p-3.5 dark:border-slate-700">
-          <div className="min-w-0 pe-3">
-            <p className="text-sm font-semibold text-slate-800 dark:text-slate-100">{label}</p>
-            {hint && <p className="mt-0.5 text-xs text-slate-500 dark:text-slate-400">{hint}</p>}
-          </div>
-          <Switch
-            checked={Boolean(value)}
-            onChange={(next) => onChange(next)}
-            label={label}
-            disabled={field.disabled}
-          />
-        </div>
+        <SwitchField
+          label={label}
+          hint={hint}
+          error={error}
+          checked={Boolean(value)}
+          onChange={(next) => onChange(next)}
+          disabled={field.disabled}
+        />
       );
 
     case "image":
       return (
-        <LabelWrapper label={label} required={required} error={error}>
-          <ImageInput
+        <LabelWrapper label={label} required={required} error={error} hint={hint}>
+          <DynamicImageField
             value={value as string | File | null}
             onChange={(next) => onChange(next)}
             disabled={field.disabled}
+          />
+        </LabelWrapper>
+      );
+
+    case "richtext":
+      return (
+        <LabelWrapper label={label} required={required} error={error} hint={hint}>
+          <RichTextEditor
+            value={(value as string) ?? ""}
+            onChange={(markdown) => onChange(markdown)}
+            disabled={field.disabled}
+            hasError={Boolean(error)}
+            dir={document.documentElement.dir === "rtl" ? "rtl" : "ltr"}
           />
         </LabelWrapper>
       );
@@ -233,5 +244,37 @@ function LabelWrapper({
         <p className="text-xs text-slate-400 dark:text-slate-500">{hint}</p>
       ) : null}
     </div>
+  );
+}
+
+/**
+ * Adapter: a DynamicForm "image" value (url | File | null) maps onto
+ * ImageUploadField's staging model. Client-side file issues are local —
+ * the form-level validation error stays in the LabelWrapper chrome.
+ */
+function DynamicImageField({
+  value,
+  onChange,
+  disabled,
+}: {
+  value: string | File | null;
+  onChange: (next: string | File | null) => void;
+  disabled?: boolean;
+}) {
+  const [fileIssue, setFileIssue] = useState<string | null>(null);
+  return (
+    <ImageUploadField
+      valueUrl={typeof value === "string" && value ? value : null}
+      stagedFile={value instanceof File ? value : null}
+      error={fileIssue ?? undefined}
+      disabled={disabled}
+      onStage={(file) => {
+        setFileIssue(null);
+        onChange(file);
+      }}
+      onRemove={() => onChange(null)}
+      onUndo={() => undefined /* DynamicForm values keep no removal memory */}
+      onError={setFileIssue}
+    />
   );
 }

@@ -1,3 +1,9 @@
+/**
+ * GLOBAL text inputs (`components/form/inputs`) — text / email / password
+ * fields with label, icon, hint and error chrome; used across auth,
+ * profile, dynamic forms and any section that needs a plain input.
+ */
+
 import { forwardRef, useId, useState, type InputHTMLAttributes } from "react";
 import { AlertCircle, Eye, EyeOff, type LucideIcon } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
@@ -84,37 +90,3 @@ export const PasswordField = forwardRef<HTMLInputElement, TextFieldProps>(functi
   );
 });
 
-/** Accessible toggle switch. */
-export function Switch({
-  checked,
-  onChange,
-  label,
-  disabled,
-}: {
-  checked: boolean;
-  onChange: (value: boolean) => void;
-  label: string;
-  disabled?: boolean;
-}) {
-  return (
-    <button
-      type="button"
-      role="switch"
-      aria-checked={checked}
-      aria-label={label}
-      disabled={disabled}
-      onClick={() => onChange(!checked)}
-      className={cn(
-        "relative h-6 w-11 shrink-0 rounded-full transition-colors disabled:opacity-50",
-        checked ? "bg-brand-600" : "bg-slate-300 dark:bg-slate-700",
-      )}
-    >
-      <span
-        className={cn(
-          "absolute top-0.5 size-5 rounded-full bg-white shadow transition-all",
-          checked ? "start-[1.375rem]" : "start-0.5",
-        )}
-      />
-    </button>
-  );
-}

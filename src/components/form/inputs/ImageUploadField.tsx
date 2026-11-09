@@ -25,7 +25,7 @@ import {
   FieldHint,
   FieldLabel,
   hintId,
-} from "@/components/inputs/FieldChrome";
+} from "@/components/form/inputs/FieldChrome";
 import {
   DEFAULT_IMAGE_ACCEPT,
   DEFAULT_MAX_DIMENSION,
@@ -33,7 +33,7 @@ import {
   probeDimensions,
   validateFileSync,
   type FileTypeIssue,
-} from "@/components/inputs/uploadUtils";
+} from "@/components/form/inputs/uploadUtils";
 import { cn } from "@/utils/cn";
 
 export interface ImageUploadFieldProps {

@@ -1,7 +1,7 @@
 import { useState, type FormEvent } from "react";
 import { AlertCircle, Mail, User, UserPlus } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
-import { PasswordField, TextField } from "@/components/ui/FormField";
+import { PasswordField, TextField } from "@/components/form";
 import { useAuth } from "@/context/AuthContext";
 import { useLanguage } from "@/context/LanguageContext";
 import { ApiError } from "@/services/api";

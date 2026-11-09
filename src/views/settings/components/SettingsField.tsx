@@ -25,7 +25,7 @@ import { BooleanSetting } from "@/views/settings/components/BooleanSetting";
 import { TranslatableSetting } from "@/views/settings/components/TranslatableSetting";
 import { MarkdownSetting } from "@/views/settings/components/MarkdownSetting";
 import { ImageSetting } from "@/views/settings/components/ImageSetting";
-import { FieldHint, FieldLabel } from "@/components/inputs";
+import { FieldHint, FieldLabel } from "@/components/form/inputs";
 
 /** Everything a widget needs, collected once by the page per section. */
 export interface SettingsFieldContext {

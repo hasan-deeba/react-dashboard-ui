@@ -12,7 +12,7 @@
 
 import { useLanguage } from "@/context/LanguageContext";
 import type { SettingsFieldMeta } from "@/types/settings";
-import { ImageUploadField } from "@/components/inputs";
+import { ImageUploadField } from "@/components/form/inputs";
 import { fieldDomId, type ImageDraft } from "@/views/settings/settingsState";
 
 interface ImageSettingProps {

@@ -22,7 +22,7 @@ import {
   toOptions,
 } from "@/services/resources";
 import { InitialsAvatar } from "@/components/ui/InitialsAvatar";
-import { Switch } from "@/components/ui/FormField";
+import { Switch } from "@/components/form";
 import { useToast } from "@/components/ui/Toast";
 import { Skeleton } from "@/components/ui/Loading";
 import { cn } from "@/utils/cn";

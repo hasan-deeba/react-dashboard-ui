@@ -27,7 +27,7 @@ import {
   FieldLabel,
   hintId,
   RichTextEditor,
-} from "@/components/inputs";
+} from "@/components/form/inputs";
 import { cn } from "@/utils/cn";
 
 export const MARKDOWN_MAX_FALLBACK = 50000;

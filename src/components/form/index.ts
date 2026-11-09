@@ -2,7 +2,6 @@
 export { DynamicForm, type DynamicFormProps } from "@/components/form/DynamicForm";
 export { field, FieldBuilder, normalizeFields, type FieldInput } from "@/components/form/fields";
 export { MultiSelect } from "@/components/form/inputs/MultiSelect";
-export { ImageInput } from "@/components/form/inputs/ImageInput";
 export {
   GroupedCheckbox,
   normalizeGroups,
@@ -17,3 +16,6 @@ export type {
   SelectOption,
   ValidationRules,
 } from "@/components/form/types";
+
+// Global inputs (scalar atoms, switch row, rich text, uploads, chrome).
+export * from "./inputs";
