@@ -1,0 +1,40 @@
+{
+  "editor": {
+    "placeholder": "Write here… Markdown formatting is supported (bold, headings, lists, links).",
+    "toolbar": {
+      "label": "Formatting toolbar",
+      "bold": "Bold",
+      "italic": "Italic",
+      "strike": "Strikethrough",
+      "code": "Inline code",
+      "heading1": "Heading 1",
+      "heading2": "Heading 2",
+      "heading3": "Heading 3",
+      "bullets": "Bullet list",
+      "ordered": "Numbered list",
+      "quote": "Quote",
+      "link": "Insert link",
+      "linkUrl": "Link URL",
+      "color": "Text color",
+      "font": "Font family",
+      "default": "Default",
+      "fontSans": "Sans-serif",
+      "fontSerif": "Serif",
+      "fontMono": "Monospace"
+    }
+  },
+  "upload": {
+    "upload": "Upload",
+    "replace": "Replace",
+    "remove": "Remove",
+    "undo": "Undo",
+    "uploading": "Uploading…",
+    "addFiles": "Add files"
+  },
+  "validation": {
+    "fileType": "This file type isn't allowed. Use: {formats}",
+    "fileSize": "The file is too large — the limit is {max} KB",
+    "imageDimensions": "Image dimensions must be at most {max}×{max} px",
+    "fileUnreadable": "This file doesn't look like a valid image"
+  }
+}

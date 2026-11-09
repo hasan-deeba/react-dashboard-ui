@@ -1,10 +1,10 @@
 /**
- * Shared chrome for the settings widgets.
+ * Shared chrome for the global form inputs (`components/inputs`).
  *
  * PURPOSE : one place for the label / error / hint markup and the input
- *           class strings, so every widget keeps the same look and the same
- *           accessibility wiring (label ↔ input via htmlFor, errors linked
- *           with aria-describedby) as the rest of the dashboard's forms.
+ *           class strings, so EVERY field in the app keeps the same look
+ *           and the same accessibility wiring (label ↔ input via htmlFor,
+ *           errors linked with aria-describedby) as the dashboard's forms.
  * EXPORTS : FieldLabel, FieldError, FieldHint, inputClass(), errorId(),
  *           hintId(), describedBy().
  * EDIT    : visual changes belong here, not in the widgets. Messages arrive

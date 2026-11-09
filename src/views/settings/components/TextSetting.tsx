@@ -14,7 +14,7 @@
 import type { SettingsFieldMeta } from "@/types/settings";
 import type { ScalarDraft } from "@/views/settings/settingsState";
 import { fieldDomId } from "@/views/settings/settingsState";
-import { describedBy, errorId, FieldError, FieldHint, FieldLabel, hintId, inputClass } from "@/views/settings/components/chrome";
+import { describedBy, errorId, FieldError, FieldHint, FieldLabel, hintId, inputClass } from "@/components/inputs";
 
 export interface ScalarWidgetProps {
   field: SettingsFieldMeta;

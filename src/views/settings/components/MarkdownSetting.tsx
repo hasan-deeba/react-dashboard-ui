@@ -2,9 +2,10 @@
  * TRANSLATABLE_MARKDOWN widget (legal documents).
  *
  * PURPOSE : one language tab pair (English / العربية), each with a Write ↔
- *           Preview switch. The editor is RichMarkdownEditor (toolbar +
- *           textarea) so formatting stays Markdown and line breaks survive;
- *           the preview is sanitized rendered HTML (see markdown.ts).
+ *           Preview switch. The editor is the global RichTextEditor
+ *           (formatted text — no visible Markdown syntax); the preview is
+ *           sanitized rendered HTML (utils/markdown.ts). Storage stays
+ *           Markdown via components/inputs/richText.ts.
  *           Arabic editor and preview render RTL. Both languages are
  *           optional — English is NOT required here, unlike app_name.
  * EXPORTS : MarkdownSetting.
@@ -17,9 +18,16 @@ import { useEffect, useMemo, useState } from "react";
 import { useLanguage } from "@/context/LanguageContext";
 import type { SettingsFieldMeta } from "@/types/settings";
 import { fieldDomId, TRANSLATED_LANGS, type LangCode, type TranslatedDraft } from "@/views/settings/settingsState";
-import { renderMarkdownPreview } from "@/views/settings/markdown";
-import { RichMarkdownEditor } from "@/views/settings/components/RichMarkdownEditor";
-import { describedBy, errorId, FieldError, FieldHint, FieldLabel, hintId } from "@/views/settings/components/chrome";
+import { renderMarkdownPreview } from "@/utils/markdown";
+import {
+  describedBy,
+  errorId,
+  FieldError,
+  FieldHint,
+  FieldLabel,
+  hintId,
+  RichTextEditor,
+} from "@/components/inputs";
 import { cn } from "@/utils/cn";
 
 export const MARKDOWN_MAX_FALLBACK = 50000;
@@ -111,12 +119,12 @@ export function MarkdownSetting({ field, draft, errors, disabled, onChange }: Ma
       </div>
 
       {mode === "edit" ? (
-        <RichMarkdownEditor
+        <RichTextEditor
           id={id}
           value={value}
           onChange={(next) => onChange(lang, next)}
-          lang={lang}
-          maxLength={max}
+          dir={lang === "ar" ? "rtl" : "ltr"}
+          documentKey={`${field.key}.${lang}`}
           disabled={disabled}
           hasError={Boolean(error)}
           describedBy={described}

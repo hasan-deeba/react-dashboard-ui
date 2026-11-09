@@ -12,7 +12,6 @@
     "dirty": "Unsaved changes",
     "viewOnly": "View only — you don't have permission to edit settings.",
     "saving": "Saving…",
-    "uploading": "Uploading image…",
     "save": "Save section"
   },
   "langs": {
@@ -33,34 +32,10 @@
     "edit": "Write",
     "preview": "Preview",
     "empty": "Nothing to preview yet.",
-    "count": "{count} / {max} characters",
-    "placeholder": "Write here… Markdown formatting is supported (bold, headings, lists, links).",
-    "toolbar": {
-      "label": "Formatting toolbar",
-      "bold": "Bold",
-      "italic": "Italic",
-      "strike": "Strikethrough",
-      "code": "Inline code",
-      "heading1": "Heading 1",
-      "heading2": "Heading 2",
-      "heading3": "Heading 3",
-      "bullets": "Bullet list",
-      "ordered": "Numbered list",
-      "quote": "Quote",
-      "link": "Insert link",
-      "color": "Text color",
-      "font": "Font family",
-      "default": "Default",
-      "fontSans": "Sans-serif",
-      "fontSerif": "Serif",
-      "fontMono": "Monospace"
-    }
+    "count": "{count} / {max} characters"
   },
   "actions": {
-    "upload": "Upload image",
-    "replace": "Replace image",
-    "remove": "Remove image",
-    "undo": "Undo"
+    "remove": "Remove image"
   },
   "dialogs": {
     "maintenance": {
@@ -91,10 +66,6 @@
     "version": "Use MAJOR.MINOR.PATCH — digits only, no leading zeros or suffixes (e.g. 1.10.0)",
     "url": "Enter a full URL starting with http:// or https://",
     "phone": "Only digits, spaces and the characters + ( ) . - are allowed",
-    "imageType": "This file type isn't allowed. Use: {formats}",
-    "imageSize": "The image is too large — the limit is {max} KB",
-    "imageDimensions": "Image dimensions must be at most {max}×{max} px",
-    "imageUnreadable": "This file doesn't look like a valid image",
     "lockBlocked": "The update lock needs a minimum version and a store URL first",
     "lockNeedsVersion": "A minimum version is required while the update lock is enabled",
     "lockNeedsStore": "A store URL is required while the update lock is enabled"

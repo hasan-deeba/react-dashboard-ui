@@ -13,7 +13,7 @@
 import { useLanguage } from "@/context/LanguageContext";
 import type { SettingsFieldMeta } from "@/types/settings";
 import { fieldDomId, TRANSLATED_LANGS, type LangCode, type TranslatedDraft } from "@/views/settings/settingsState";
-import { describedBy, errorId, FieldError, FieldLabel, inputClass } from "@/views/settings/components/chrome";
+import { describedBy, errorId, FieldError, FieldLabel, inputClass } from "@/components/inputs";
 import { cn } from "@/utils/cn";
 
 interface TranslatableSettingProps {

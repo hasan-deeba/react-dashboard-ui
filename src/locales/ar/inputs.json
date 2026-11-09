@@ -1,0 +1,40 @@
+{
+  "editor": {
+    "placeholder": "اكتب هنا… يدعم تنسيق Markdown (غامق، عناوين، قوائم، روابط).",
+    "toolbar": {
+      "label": "شريط التنسيق",
+      "bold": "غامق",
+      "italic": "مائل",
+      "strike": "يتوسّطه خط",
+      "code": "كود مضمّن",
+      "heading1": "عنوان 1",
+      "heading2": "عنوان 2",
+      "heading3": "عنوان 3",
+      "bullets": "قائمة نقطية",
+      "ordered": "قائمة مرقّمة",
+      "quote": "اقتباس",
+      "link": "إدراج رابط",
+      "linkUrl": "عنوان الرابط",
+      "color": "لون النص",
+      "font": "نوع الخط",
+      "default": "الافتراضي",
+      "fontSans": "عادي",
+      "fontSerif": "كلاسيكي (Serif)",
+      "fontMono": "أحادي المسافة"
+    }
+  },
+  "upload": {
+    "upload": "رفع",
+    "replace": "استبدال",
+    "remove": "إزالة",
+    "undo": "تراجع",
+    "uploading": "جارٍ الرفع…",
+    "addFiles": "إضافة ملفات"
+  },
+  "validation": {
+    "fileType": "نوع الملف غير مسموح. الأنواع المقبولة: {formats}",
+    "fileSize": "حجم الملف كبير — الحد الأقصى {max} كيلوبايت",
+    "imageDimensions": "يجب ألا تتجاوز أبعاد الصورة {max}×{max} بكسل",
+    "fileUnreadable": "يبدو أن هذا الملف ليس صورة صالحة"
+  }
+}
