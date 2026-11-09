@@ -222,3 +222,16 @@ html.dark[data-surface="soft"] .surface-card {
 .dark .settings-md blockquote { border-inline-start-color: var(--color-slate-600); color: var(--color-slate-400); }
 .dark .settings-md code { background: var(--color-slate-800); }
 .dark .settings-md hr { border-color: var(--color-slate-700); }
+
+/* TipTap WYSIWYG surface (legal-text editor) — placeholder + focus reset. */
+.ProseMirror:focus { outline: none; }
+.ProseMirror p.is-editor-empty:first-child::before {
+  content: attr(data-placeholder);
+  color: var(--color-slate-400, #94a3b8);
+  float: inline-start;
+  height: 0;
+  pointer-events: none;
+}
+.dark .ProseMirror p.is-editor-empty:first-child::before {
+  color: var(--color-slate-500, #64748b);
+}
