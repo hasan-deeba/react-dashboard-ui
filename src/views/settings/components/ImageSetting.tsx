@@ -160,7 +160,21 @@ export function ImageSetting({
               )}
             />
           ) : (
-            <div className="grid size-20 place-items-center rounded-icon bg-slate-100 text-slate-400 ring-4 ring-slate-200/60 dark:bg-slate-800 dark:ring-slate-700/60">
+            // Broken state stays inspectable: the tooltip carries the URL we
+            // tried, and clicking retries the load (server may just be back).
+            <div
+              role={broken && currentUrl ? "button" : undefined}
+              tabIndex={broken && currentUrl ? 0 : undefined}
+              title={broken && currentUrl ? currentUrl : undefined}
+              onClick={() => broken && setBroken(false)}
+              onKeyDown={(event) => {
+                if (broken && (event.key === "Enter" || event.key === " ")) setBroken(false);
+              }}
+              className={cn(
+                "grid size-20 place-items-center rounded-icon bg-slate-100 text-slate-400 ring-4 ring-slate-200/60 dark:bg-slate-800 dark:ring-slate-700/60",
+                broken && currentUrl && "cursor-pointer ring-rose-300/70 hover:text-rose-500 dark:ring-rose-500/40",
+              )}
+            >
               <Camera className="size-6" />
             </div>
           )}

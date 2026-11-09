@@ -7,7 +7,8 @@
  *           expressed as inline `<span style="…">…</span>`, which is legal
  *           inside Markdown (only ACTIVE tags are banned server-side).
  * EXPORTS : TextSelection, EditResult, wrapSelection(), toggleLinePrefix(),
- *           applyOrderedList(), applyLink(), toggleSpanStyle().
+ *           applyOrderedList(), applyLink(), toggleSpanStyle(),
+ *           handleEnter(), indentLines(), selectionMarks().
  * EDIT    : keep these functions pure and DOM-free — they are exercised by
  *           the node smoke suite.
  */
@@ -198,4 +199,103 @@ export function toggleSpanStyle(
   const open = openFor(cssValue);
   const next = before + open + inner + CLOSE + after;
   return { value: next, selStart: start + open.length, selEnd: start + open.length + inner.length };
+}
+
+/* ------------------------- writing ergonomics ------------------------- */
+
+const BULLET_RE = /^(\s*)([-*+])(\s+)/;
+const ORDERED_FULL_RE = /^(\s*)(\d+)([.)])(\s+)/;
+const QUOTE_RE = /^(\s*>+)(\s*)/;
+
+/** The full line containing an offset. */
+function lineAt(value: string, offset: number): { lineStart: number; lineEnd: number; line: string } {
+  const lineStart = value.lastIndexOf("\n", Math.max(0, offset - 1)) + 1;
+  const nl = value.indexOf("\n", lineStart);
+  const lineEnd = nl === -1 ? value.length : nl;
+  return { lineStart, lineEnd, line: value.slice(lineStart, lineEnd) };
+}
+
+/**
+ * Enter-key behaviour for list/quote lines (returns null for plain lines so
+ * the browser inserts a normal newline):
+ *   - inside a list item / quote  → continue the prefix on the next line,
+ *     incrementing ordered numbers, splitting the line at the cursor;
+ *   - on an EMPTY item            → drop the marker (second Enter exits).
+ */
+export function handleEnter(value: string, { start, end }: TextSelection): EditResult | null {
+  if (start !== end) return null;
+
+  const { lineStart, lineEnd, line } = lineAt(value, start);
+  let continuation: string | null = null;
+
+  const ordered = line.match(ORDERED_FULL_RE);
+  const bullet = line.match(BULLET_RE);
+  const quote = line.match(QUOTE_RE);
+  let prefixLen = 0;
+
+  if (ordered) {
+    continuation = `${ordered[1]}${Number(ordered[2]) + 1}${ordered[3]}${ordered[4]}`;
+    prefixLen = ordered[0].length;
+  } else if (bullet) {
+    continuation = bullet[0];
+    prefixLen = bullet[0].length;
+  } else if (quote) {
+    continuation = quote[2] ? quote[0] : `${quote[1]} `;
+    prefixLen = quote[0].length;
+  }
+
+  if (continuation === null) return null;
+
+  // Enter on an empty item strips the marker instead of spawning a new one.
+  if (line.slice(prefixLen).trim() === "") {
+    const next = value.slice(0, lineStart) + value.slice(lineEnd);
+    return { value: next, selStart: lineStart, selEnd: lineStart };
+  }
+
+  // Split at the cursor: text after it moves into the new prefixed line.
+  const next = value.slice(0, start) + "\n" + continuation + value.slice(start);
+  const cursor = start + 1 + continuation.length;
+  return { value: next, selStart: cursor, selEnd: cursor };
+}
+
+/**
+ * Tab / Shift+Tab: indent or outdent every touched line by two spaces
+ * (one tab counts as one level). Empty lines are left untouched.
+ */
+export function indentLines(
+  value: string,
+  { start, end }: TextSelection,
+  direction: 1 | -1,
+): EditResult {
+  const lineStart = value.lastIndexOf("\n", Math.max(0, start - 1)) + 1;
+  const nl = value.indexOf("\n", end);
+  const lineEnd = nl === -1 ? value.length : nl;
+
+  const lines = value.slice(lineStart, lineEnd).split("\n");
+  const nextLines = lines.map((line) => {
+    if (line.trim() === "") return line;
+    if (direction === 1) return "  " + line;
+    if (line.startsWith("\t")) return line.slice(1);
+    return line.replace(/^ {1,2}/, "");
+  });
+
+  const nextBlock = nextLines.join("\n");
+  const next = value.slice(0, lineStart) + nextBlock + value.slice(lineEnd);
+  return { value: next, selStart: lineStart, selEnd: lineStart + nextBlock.length };
+}
+
+/** Which inline markers currently hug the selection/cursor — toolbar state. */
+export function selectionMarks(
+  value: string,
+  { start, end }: TextSelection,
+): { bold: boolean; italic: boolean; code: boolean; strike: boolean } {
+  const before = value.slice(0, start);
+  const after = value.slice(end);
+  const hugs = (marker: string) => before.endsWith(marker) && after.startsWith(marker);
+
+  const bold = hugs("**") || hugs("__");
+  const italic = (hugs("*") || hugs("_")) && !bold;
+  const code = hugs("`");
+  const strike = hugs("~~");
+  return { bold, italic, code, strike };
 }

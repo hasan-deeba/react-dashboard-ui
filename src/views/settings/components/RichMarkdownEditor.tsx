@@ -1,10 +1,14 @@
 /**
  * Rich Markdown editor for the legal-text fields.
  *
- * PURPOSE : a toolbar-driven editor (bold, italic, headings, lists, quote,
- *           code, link, text colour, font family) in front of a plain
- *           textarea. The stored value stays Markdown — block/inline actions
- *           insert Markdown syntax, and colour/font-family use inline
+ * PURPOSE : a toolbar-driven editor (bold, italic, strike, headings, lists,
+ *           quote, code, link, text colour, font family) in front of a
+ *           plain textarea. Writing ergonomics match a real editor:
+ *           keyboard shortcuts, Enter continues lists/quotes (second Enter
+ *           on an empty item exits), Tab / Shift+Tab (out)indents, active
+ *           toolbar states follow the cursor, and the surface auto-grows.
+ *           The stored value stays Markdown — block/inline actions insert
+ *           Markdown syntax, and colour/font-family use inline
  *           `<span style="…">…</span>` (legal inside Markdown; only ACTIVE
  *           tags are banned server-side). The preview sanitizer
  *           (`views/settings/markdown.ts`) allows exactly `style` on spans.
@@ -15,7 +19,7 @@
  *           contenteditable output (the backend contract is Markdown).
  */
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   Bold,
   Code,
@@ -28,6 +32,7 @@ import {
   ListOrdered,
   Palette,
   Quote,
+  Strikethrough,
   Type,
   type LucideIcon,
 } from "lucide-react";
@@ -37,10 +42,14 @@ import type { LangCode } from "@/views/settings/settingsState";
 import {
   applyLink,
   applyOrderedList,
+  handleEnter,
+  indentLines,
+  selectionMarks,
   toggleLinePrefix,
   toggleSpanStyle,
   wrapSelection,
   type EditResult,
+  type TextSelection,
 } from "@/views/settings/markdownEdit";
 import { cn } from "@/utils/cn";
 
@@ -52,6 +61,9 @@ const FONT_STACKS = [
   { id: "serif", css: "'Georgia', 'Times New Roman', serif", labelKey: "settings.editor.toolbar.fontSerif" },
   { id: "mono", css: "ui-monospace, 'Menlo', monospace", labelKey: "settings.editor.toolbar.fontMono" },
 ] as const;
+
+const IS_MAC = typeof navigator !== "undefined" && /Mac|iPhone|iPad/.test(navigator.platform ?? "");
+const MOD = IS_MAC ? "\u2318" : "Ctrl+";
 
 export interface RichMarkdownEditorProps {
   id: string;
@@ -74,24 +86,32 @@ function ToolButton({
   label,
   onClick,
   disabled,
+  active = false,
+  shortcut,
 }: {
   icon: LucideIcon;
   label: string;
   onClick: () => void;
   disabled?: boolean;
+  active?: boolean;
+  shortcut?: string;
 }) {
+  const title = shortcut ? `${label} (${shortcut})` : label;
   return (
     <button
       type="button"
-      title={label}
-      aria-label={label}
+      title={title}
+      aria-label={title}
+      aria-pressed={active}
       disabled={disabled}
       onMouseDown={(event) => event.preventDefault() /* keep the textarea selection */}
       onClick={onClick}
       className={cn(
-        "grid size-7 place-items-center rounded-control text-slate-500 transition-colors",
-        "hover:bg-slate-200/80 hover:text-slate-700 disabled:cursor-not-allowed disabled:opacity-40",
-        "dark:text-slate-400 dark:hover:bg-slate-700 dark:hover:text-slate-200",
+        "grid size-7 place-items-center rounded-control transition-colors",
+        active
+          ? "bg-brand-500/15 text-brand-600 dark:bg-brand-400/10 dark:text-brand-300"
+          : "text-slate-500 hover:bg-slate-200/80 hover:text-slate-700 dark:text-slate-400 dark:hover:bg-slate-700 dark:hover:text-slate-200",
+        "disabled:cursor-not-allowed disabled:opacity-40",
       )}
     >
       <Icon className="size-3.5" />
@@ -112,20 +132,83 @@ export function RichMarkdownEditor({
   const { t } = useLanguage();
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const [openMenu, setOpenMenu] = useState<"color" | "font" | null>(null);
+  const [sel, setSel] = useState<TextSelection>({ start: 0, end: 0 });
   const menuRef = useClickOutside<HTMLDivElement>(() => setOpenMenu(null));
 
-  /** Apply a pure transform and restore focus + the intended selection. */
-  const apply = (produce: (current: string, sel: { start: number; end: number }) => EditResult) => {
+  /** Auto-grow the surface with the content (capped at 60vh). */
+  useEffect(() => {
     const ta = textareaRef.current;
-    if (!ta || disabled) return;
-    const sel = { start: ta.selectionStart, end: ta.selectionEnd };
-    const result = produce(ta.value, sel);
+    if (!ta) return;
+    ta.style.height = "auto";
+    ta.style.height = `${Math.min(ta.scrollHeight, Math.round(window.innerHeight * 0.6))}px`;
+  }, [value, lang]);
+
+  /** Push an EditResult into the form and restore focus + selection. */
+  const applyResult = (result: EditResult) => {
     onChange(result.value);
+    setSel({ start: result.selStart, end: result.selEnd });
     window.setTimeout(() => {
+      const ta = textareaRef.current;
+      if (!ta) return;
       ta.focus();
       ta.setSelectionRange(result.selStart, result.selEnd);
     }, 0);
   };
+
+  /** Apply a pure transform read from the live selection. */
+  const apply = (produce: (current: string, sel: TextSelection) => EditResult) => {
+    const ta = textareaRef.current;
+    if (!ta || disabled) return;
+    applyResult(produce(ta.value, { start: ta.selectionStart, end: ta.selectionEnd }));
+  };
+
+  const onSelect = () => {
+    const ta = textareaRef.current;
+    if (ta) setSel({ start: ta.selectionStart, end: ta.selectionEnd });
+  };
+
+  const onKeyDown = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (disabled) return;
+    const mod = event.ctrlKey || event.metaKey;
+
+    if (event.key === "Tab") {
+      event.preventDefault();
+      apply((current, s) => indentLines(current, s, event.shiftKey ? -1 : 1));
+      return;
+    }
+
+    if (event.key === "Enter" && !event.shiftKey && !mod && !event.altKey) {
+      const ta = textareaRef.current;
+      if (!ta) return;
+      const result = handleEnter(ta.value, { start: ta.selectionStart, end: ta.selectionEnd });
+      if (result) {
+        event.preventDefault();
+        applyResult(result);
+      }
+      return;
+    }
+
+    if (!mod) return;
+    const key = event.key.toLowerCase();
+    if (key === "b") {
+      event.preventDefault();
+      apply((v, s) => wrapSelection(v, s, "**"));
+    } else if (key === "i") {
+      event.preventDefault();
+      apply((v, s) => wrapSelection(v, s, "*"));
+    } else if (key === "e") {
+      event.preventDefault();
+      apply((v, s) => wrapSelection(v, s, "`"));
+    } else if (key === "k") {
+      event.preventDefault();
+      apply(applyLink);
+    } else if (key === "x" && event.shiftKey) {
+      event.preventDefault();
+      apply((v, s) => wrapSelection(v, s, "~~"));
+    }
+  };
+
+  const marks = selectionMarks(value, sel);
 
   return (
     <div
@@ -141,9 +224,10 @@ export function RichMarkdownEditor({
         aria-label={t("settings.editor.toolbar.label")}
         className="flex flex-wrap items-center gap-0.5 border-b border-slate-200/80 px-1.5 py-1 dark:border-slate-700/70"
       >
-        <ToolButton disabled={disabled} icon={Bold} label={t("settings.editor.toolbar.bold")} onClick={() => apply((v, s) => wrapSelection(v, s, "**"))} />
-        <ToolButton disabled={disabled} icon={Italic} label={t("settings.editor.toolbar.italic")} onClick={() => apply((v, s) => wrapSelection(v, s, "*"))} />
-        <ToolButton disabled={disabled} icon={Code} label={t("settings.editor.toolbar.code")} onClick={() => apply((v, s) => wrapSelection(v, s, "`"))} />
+        <ToolButton disabled={disabled} active={marks.bold} shortcut={`${MOD}B`} icon={Bold} label={t("settings.editor.toolbar.bold")} onClick={() => apply((v, s) => wrapSelection(v, s, "**"))} />
+        <ToolButton disabled={disabled} active={marks.italic} shortcut={`${MOD}I`} icon={Italic} label={t("settings.editor.toolbar.italic")} onClick={() => apply((v, s) => wrapSelection(v, s, "*"))} />
+        <ToolButton disabled={disabled} active={marks.strike} shortcut={`${MOD}⇧X`} icon={Strikethrough} label={t("settings.editor.toolbar.strike")} onClick={() => apply((v, s) => wrapSelection(v, s, "~~"))} />
+        <ToolButton disabled={disabled} active={marks.code} shortcut={`${MOD}E`} icon={Code} label={t("settings.editor.toolbar.code")} onClick={() => apply((v, s) => wrapSelection(v, s, "`"))} />
         <Divider />
         <ToolButton disabled={disabled} icon={Heading1} label={t("settings.editor.toolbar.heading1")} onClick={() => apply((v, s) => toggleLinePrefix(v, s, "# "))} />
         <ToolButton disabled={disabled} icon={Heading2} label={t("settings.editor.toolbar.heading2")} onClick={() => apply((v, s) => toggleLinePrefix(v, s, "## "))} />
@@ -153,7 +237,7 @@ export function RichMarkdownEditor({
         <ToolButton disabled={disabled} icon={ListOrdered} label={t("settings.editor.toolbar.ordered")} onClick={() => apply(applyOrderedList)} />
         <ToolButton disabled={disabled} icon={Quote} label={t("settings.editor.toolbar.quote")} onClick={() => apply((v, s) => toggleLinePrefix(v, s, "> "))} />
         <Divider />
-        <ToolButton disabled={disabled} icon={Link2} label={t("settings.editor.toolbar.link")} onClick={() => apply(applyLink)} />
+        <ToolButton disabled={disabled} shortcut={`${MOD}K`} icon={Link2} label={t("settings.editor.toolbar.link")} onClick={() => apply(applyLink)} />
 
         {/* Text colour */}
         <div className="relative" ref={openMenu === "color" ? menuRef : undefined}>
@@ -240,16 +324,19 @@ export function RichMarkdownEditor({
       <textarea
         ref={textareaRef}
         id={id}
-        rows={10}
+        rows={8}
         dir={lang === "ar" ? "rtl" : "ltr"}
         value={value}
         onChange={(event) => onChange(event.target.value)}
+        onSelect={onSelect}
+        onKeyDown={onKeyDown}
         maxLength={maxLength}
         disabled={disabled}
         aria-invalid={hasError}
         aria-describedby={describedBy}
         spellCheck={lang !== "ar"}
-        className="w-full resize-y bg-transparent px-3.5 py-2.5 font-mono text-xs leading-relaxed text-slate-800 outline-none disabled:cursor-not-allowed disabled:opacity-60 dark:text-white"
+        placeholder={t("settings.editor.placeholder")}
+        className="min-h-56 w-full resize-none overflow-y-auto bg-transparent px-3.5 py-2.5 font-mono text-[13px] leading-relaxed text-slate-800 outline-none placeholder:text-slate-400 disabled:cursor-not-allowed disabled:opacity-60 dark:text-white dark:placeholder:text-slate-500"
       />
     </div>
   );
