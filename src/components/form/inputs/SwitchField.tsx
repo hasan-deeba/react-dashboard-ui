@@ -10,8 +10,8 @@
  */
 
 import { useId } from "react";
-import { Switch } from "@/components/ui/FormField";
-import { errorId, FieldError } from "@/components/inputs/FieldChrome";
+import { Switch } from "@/components/form/inputs/Switch";
+import { errorId, FieldError } from "@/components/form/inputs/FieldChrome";
 import { cn } from "@/utils/cn";
 
 export interface SwitchFieldProps {

@@ -12,7 +12,7 @@
  */
 
 import type { SettingsFieldMeta } from "@/types/settings";
-import { SwitchField } from "@/components/inputs";
+import { SwitchField } from "@/components/form/inputs";
 import { fieldDomId, type BooleanDraft } from "@/views/settings/settingsState";
 
 interface BooleanSettingProps {

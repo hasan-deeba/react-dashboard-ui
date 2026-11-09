@@ -160,6 +160,8 @@ export const field = {
   groupedCheckbox: make("grouped-checkbox"),
   switch: make("switch"),
   image: make("image"),
+  /** WYSIWYG long-form content — the value is Markdown. */
+  richtext: make("richtext"),
   date: make("date"),
   custom: make("custom"),
 };

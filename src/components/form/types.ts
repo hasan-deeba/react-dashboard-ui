@@ -19,6 +19,7 @@ export type FieldType =
   | "grouped-checkbox"
   | "switch"
   | "image"
+  | "richtext"
   | "date"
   | "custom";
 

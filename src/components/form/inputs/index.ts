@@ -1,20 +1,24 @@
 /**
  * GLOBAL form inputs — one consistent field treatment across every section.
  *
- * PURPOSE : import from "@/components/inputs" anywhere in the app and get
- *           the same label / hint / error chrome and behaviour:
+ * PURPOSE : import from "@/components/form/inputs" (or the "@/components/form"
+ *           public barrel) anywhere in the app and get the same label /
+ *           hint / error chrome and behaviour:
  *             - FieldLabel / FieldError / FieldHint / inputClass — chrome
- *             - TextField / PasswordField / Switch (see components/ui/FormField)
+ *             - TextField / PasswordField / Switch — scalar atoms
  *             - SwitchField        — labelled boolean row
  *             - RichTextEditor     — WYSIWYG writing Markdown under the hood
- *             - ImageUploadField   — single image (thumbnail, confirm-remove)
+ *             - ImageUploadField   — single image (thumbnail, validation)
  *             - FileUploadField    — multi files: image tiles or doc rows
+ *             - MultiSelect / GroupedCheckbox — set pickers
  * EDIT    : inputs must stay feature-agnostic (no per-section imports) —
  *           adapters in each section map their own state/meta onto the
  *           generic props.
  */
 
 export * from "./FieldChrome";
+export * from "./Switch";
+export * from "./TextFields";
 export * from "./SwitchField";
 export * from "./RichTextEditor";
 export * from "./ImageUploadField";

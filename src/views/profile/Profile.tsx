@@ -12,7 +12,7 @@ import {
   User as UserIcon,
 } from "lucide-react";
 import { Spinner } from "@/components/ui/Loading";
-import { PasswordField, Switch, TextField } from "@/components/ui/FormField";
+import { PasswordField, Switch, TextField } from "@/components/form";
 import { InitialsAvatar } from "@/components/ui/InitialsAvatar";
 import { useAuth } from "@/context/AuthContext";
 import { useLanguage } from "@/context/LanguageContext";

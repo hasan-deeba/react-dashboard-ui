@@ -50,8 +50,8 @@ import {
   FieldHint,
   FieldLabel,
   hintId,
-} from "@/components/inputs/FieldChrome";
-import { htmlToMarkdown, markdownToEditorHtml } from "@/components/inputs/richText";
+} from "@/components/form/inputs/FieldChrome";
+import { htmlToMarkdown, markdownToEditorHtml } from "@/components/form/inputs/richText";
 import { cn } from "@/utils/cn";
 
 /** Preset swatches — CONTENT colours stored inside the document. */
