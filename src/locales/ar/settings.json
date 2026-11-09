@@ -33,7 +33,26 @@
     "edit": "تحرير",
     "preview": "معاينة",
     "empty": "لا يوجد محتوى للمعاينة بعد.",
-    "count": "{count} / {max} حرفًا"
+    "count": "{count} / {max} حرفًا",
+    "toolbar": {
+      "label": "شريط التنسيق",
+      "bold": "غامق",
+      "italic": "مائل",
+      "code": "كود مضمّن",
+      "heading1": "عنوان 1",
+      "heading2": "عنوان 2",
+      "heading3": "عنوان 3",
+      "bullets": "قائمة نقطية",
+      "ordered": "قائمة مرقّمة",
+      "quote": "اقتباس",
+      "link": "إدراج رابط",
+      "color": "لون النص",
+      "font": "نوع الخط",
+      "default": "الافتراضي",
+      "fontSans": "عادي",
+      "fontSerif": "كلاسيكي (Serif)",
+      "fontMono": "أحادي المسافة"
+    }
   },
   "actions": {
     "upload": "رفع صورة",

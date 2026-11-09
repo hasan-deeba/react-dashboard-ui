@@ -12,7 +12,7 @@
  * Adjust the paths here only — nothing else in the app knows about them.
  */
 
-import api from "@/services/api";
+import api, { resolveMediaUrl } from "@/services/api";
 
 export interface AuthUser {
   id: string | number;
@@ -84,7 +84,9 @@ export function normalizeUser(raw: unknown): AuthUser {
     id: (source?.id as string | number) ?? "",
     name: String(source?.name ?? ""),
     email: String(source?.email ?? ""),
-    image: (source?.avatar as string | null) ?? (source?.image as string | null) ?? null,
+    image: resolveMediaUrl(
+      (source?.avatar as string | null) ?? (source?.image as string | null) ?? null,
+    ),
     is_active: source?.is_active === undefined ? true : Boolean(source.is_active),
     is_super_admin: Boolean(source?.is_super_admin),
     roles: toNames(source?.roles),

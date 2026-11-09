@@ -27,6 +27,9 @@ export function renderMarkdownPreview(markdown: string): string {
   const html = marked.parse(markdown, { async: false });
   return DOMPurify.sanitize(html, {
     FORBID_TAGS,
+    // The editor writes colour/font-family via inline span styles — allow
+    // the attribute (DOMPurify still strips dangerous CSS from it).
+    ADD_ATTR: ["style"],
     // Clickable schemes stay limited to http(s) (+ pure-local anchors/paths).
     ALLOWED_URI_REGEXP: /^(?:(?:https?):\/\/|#|\/)/i,
   });

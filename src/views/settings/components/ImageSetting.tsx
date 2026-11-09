@@ -30,7 +30,7 @@ const MAX_DIMENSION = 4096;
 interface ImageSettingProps {
   field: SettingsFieldMeta;
   draft: ImageDraft;
-  /** Absolute URL the last GET returned (display only). */
+  /** Display-ready URL the last GET returned (async-resolved; display only). */
   currentUrl: string | null;
   extraHint?: string;
   error?: string;

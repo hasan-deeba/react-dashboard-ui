@@ -18,6 +18,12 @@
 
 const BASE_URL = (import.meta.env.VITE_API_BASE_URL as string | undefined)?.replace(/\/$/, "") ?? "";
 
+/**
+ * scheme://host[:port] the API is served from — the dashboard origin itself
+ * when BASE_URL is empty/relative (same-origin deployments).
+ */
+export const API_ORIGIN = new URL(BASE_URL || "/", window.location.origin).origin;
+
 export const AUTH_UNAUTHORIZED_EVENT = "auth:unauthorized";
 
 /** Endpoints where a 401 means "wrong credentials", not "expired session". */
@@ -57,6 +63,20 @@ function hasStoredToken(): boolean {
 /** LanguageProvider paints `lang` on <html>, so this always matches the UI. */
 function currentLocale(): string {
   return document.documentElement.lang || "en";
+}
+
+/**
+ * Media URLs in API payloads (settings images, avatars, …) are stored
+ * server-side and may come back RELATIVE to the API host ("storage/…" or
+ * "/storage/…"). Bare relative values would resolve against the DASHBOARD
+ * origin — wrong when the SPA and the API live on different host/ports —
+ * so anchor them on the API origin. Absolute and inline sources pass
+ * through untouched.
+ */
+export function resolveMediaUrl(raw: string | null | undefined): string | null {
+  if (!raw) return null;
+  if (/^(?:https?:|data:|blob:)/i.test(raw)) return raw;
+  return `${API_ORIGIN}${raw.startsWith("/") ? "" : "/"}${raw}`;
 }
 
 function buildUrl(endpoint: string, params: QueryParams = {}): string {

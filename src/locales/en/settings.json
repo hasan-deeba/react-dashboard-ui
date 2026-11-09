@@ -33,7 +33,26 @@
     "edit": "Write",
     "preview": "Preview",
     "empty": "Nothing to preview yet.",
-    "count": "{count} / {max} characters"
+    "count": "{count} / {max} characters",
+    "toolbar": {
+      "label": "Formatting toolbar",
+      "bold": "Bold",
+      "italic": "Italic",
+      "code": "Inline code",
+      "heading1": "Heading 1",
+      "heading2": "Heading 2",
+      "heading3": "Heading 3",
+      "bullets": "Bullet list",
+      "ordered": "Numbered list",
+      "quote": "Quote",
+      "link": "Insert link",
+      "color": "Text color",
+      "font": "Font family",
+      "default": "Default",
+      "fontSans": "Sans-serif",
+      "fontSerif": "Serif",
+      "fontMono": "Monospace"
+    }
   },
   "actions": {
     "upload": "Upload image",

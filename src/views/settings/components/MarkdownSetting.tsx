@@ -2,9 +2,9 @@
  * TRANSLATABLE_MARKDOWN widget (legal documents).
  *
  * PURPOSE : one language tab pair (English / العربية), each with a Write ↔
- *           Preview switch. The editor is a plain multiline textarea so
- *           Markdown formatting and meaningful line breaks survive; the
- *           preview is sanitized rendered HTML (services see markdown.ts).
+ *           Preview switch. The editor is RichMarkdownEditor (toolbar +
+ *           textarea) so formatting stays Markdown and line breaks survive;
+ *           the preview is sanitized rendered HTML (see markdown.ts).
  *           Arabic editor and preview render RTL. Both languages are
  *           optional — English is NOT required here, unlike app_name.
  * EXPORTS : MarkdownSetting.
@@ -18,7 +18,8 @@ import { useLanguage } from "@/context/LanguageContext";
 import type { SettingsFieldMeta } from "@/types/settings";
 import { fieldDomId, TRANSLATED_LANGS, type LangCode, type TranslatedDraft } from "@/views/settings/settingsState";
 import { renderMarkdownPreview } from "@/views/settings/markdown";
-import { describedBy, errorId, FieldError, FieldHint, FieldLabel, hintId, inputClass } from "@/views/settings/components/chrome";
+import { RichMarkdownEditor } from "@/views/settings/components/RichMarkdownEditor";
+import { describedBy, errorId, FieldError, FieldHint, FieldLabel, hintId } from "@/views/settings/components/chrome";
 import { cn } from "@/utils/cn";
 
 export const MARKDOWN_MAX_FALLBACK = 50000;
@@ -110,18 +111,15 @@ export function MarkdownSetting({ field, draft, errors, disabled, onChange }: Ma
       </div>
 
       {mode === "edit" ? (
-        <textarea
+        <RichMarkdownEditor
           id={id}
-          rows={10}
-          dir={lang === "ar" ? "rtl" : "ltr"}
           value={value}
-          onChange={(event) => onChange(lang, event.target.value)}
+          onChange={(next) => onChange(lang, next)}
+          lang={lang}
           maxLength={max}
           disabled={disabled}
-          aria-invalid={Boolean(error)}
-          aria-describedby={described}
-          spellCheck={lang !== "ar"}
-          className={cn(inputClass(Boolean(error)), "resize-y font-mono text-xs leading-relaxed")}
+          hasError={Boolean(error)}
+          describedBy={described}
         />
       ) : (
         <div

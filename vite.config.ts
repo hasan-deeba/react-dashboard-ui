@@ -16,4 +16,13 @@ export default defineConfig({
       "@": path.resolve(__dirname, "src"),
     },
   },
+  server: {
+    host: true,
+    // Allow the Arena live-preview proxy host (*.e2b.app).
+    allowedHosts: [".e2b.app"],
+  },
+  preview: {
+    host: true,
+    allowedHosts: [".e2b.app"],
+  },
 });
