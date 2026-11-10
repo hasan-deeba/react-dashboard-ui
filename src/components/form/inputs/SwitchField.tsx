@@ -11,7 +11,7 @@
 
 import { useId } from "react";
 import { Switch } from "@/components/form/inputs/Switch";
-import { errorId, FieldError } from "@/components/form/inputs/FieldChrome";
+import { errorId, FieldError } from "@/components/form/inputs/FieldFrame";
 import { cn } from "@/utils/cn";
 
 export interface SwitchFieldProps {
