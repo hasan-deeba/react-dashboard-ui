@@ -25,7 +25,7 @@ import {
   FieldHint,
   FieldLabel,
   hintId,
-} from "@/components/form/inputs/FieldChrome";
+} from "@/components/form/inputs/FieldFrame";
 import {
   DEFAULT_IMAGE_ACCEPT,
   DEFAULT_MAX_DIMENSION,

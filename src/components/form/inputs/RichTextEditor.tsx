@@ -50,7 +50,7 @@ import {
   FieldHint,
   FieldLabel,
   hintId,
-} from "@/components/form/inputs/FieldChrome";
+} from "@/components/form/inputs/FieldFrame";
 import { htmlToMarkdown, markdownToEditorHtml } from "@/components/form/inputs/richText";
 import { cn } from "@/utils/cn";
 

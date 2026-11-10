@@ -1,10 +1,12 @@
 /**
- * Shared chrome for the global form inputs (`components/inputs`).
+ * The frame around every form control (`components/form/inputs/FieldFrame`).
  *
- * PURPOSE : one place for the label / error / hint markup and the input
- *           class strings, so EVERY field in the app keeps the same look
- *           and the same accessibility wiring (label ↔ input via htmlFor,
- *           errors linked with aria-describedby) as the dashboard's forms.
+ * WHAT IT DOES : renders the parts that surround an input — its LABEL
+ *                above, its ERROR or HINT below — plus the input class
+ *                string and the aria/id helpers that wire them together
+ *                (label ↔ control via htmlFor, error/hint via
+ *                aria-describedby). Every field in the app uses this frame
+ *                so they all look and behave identically.
  * EXPORTS : FieldLabel, FieldError, FieldHint, inputClass(), errorId(),
  *           hintId(), describedBy().
  * EDIT    : visual changes belong here, not in the widgets. Messages arrive

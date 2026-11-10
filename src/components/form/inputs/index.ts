@@ -4,7 +4,8 @@
  * PURPOSE : import from "@/components/form/inputs" (or the "@/components/form"
  *           public barrel) anywhere in the app and get the same label /
  *           hint / error chrome and behaviour:
- *             - FieldLabel / FieldError / FieldHint / inputClass — chrome
+ *             - FieldLabel / FieldError / FieldHint / inputClass — the
+ *               label/error/hint frame around every control (FieldFrame)
  *             - TextField / PasswordField / Switch — scalar atoms
  *             - SwitchField        — labelled boolean row
  *             - RichTextEditor     — WYSIWYG writing Markdown under the hood
@@ -16,7 +17,7 @@
  *           generic props.
  */
 
-export * from "./FieldChrome";
+export * from "./FieldFrame";
 export * from "./Switch";
 export * from "./TextFields";
 export * from "./SwitchField";
